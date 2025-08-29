@@ -6,6 +6,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from models.enums import SeparatorSelection
 
 import os
+from pathlib import Path
 
 class SourceDataProcessor:
     def source_data_loader(source_data_path: str) -> Any:
@@ -73,21 +74,3 @@ class SourceDataProcessor:
         except Exception as err:
             print(f"Failed to split source data: {err}")
         return split_data
-
-
-def main():
-    source_pdf_path = "./source_data/tango_91.pdf"
-    if not os.path.isfile(source_pdf_path):
-        print(f"File not found: {source_pdf_path}")
-        return
-    
-    document_processor = SourceDataProcessor()
-    document = document_processor.source_data_loader(source_pdf_path)
-    if document is not None:
-        data_chunks = document_processor.source_data_chunker(document, SeparatorSelection.SINGLE_NEW_LINE)
-        print(f"Data chunked successfully")
-    else:
-        print("PDF loading/chunking failed.")
-
-if __name__ == "__main__":
-    main()
