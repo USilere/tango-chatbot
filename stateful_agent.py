@@ -13,6 +13,7 @@ from models import prompt_templates
 class StateAgent():
     def __init__(self):
         self.user_query: str
+        self.reformatted_user_query: str
         self.context: List[Document]
         self.answer: str
 
@@ -49,7 +50,7 @@ class StateAgent():
         # Create a prompt template to that tells the LLM how to
         # distinguish a code block from the source PDF
         ip_prompt = self.prompt.invoke(
-            {"question": self.user_query, 
+            {"question": self.reformatted_user_query, 
              "context": ret_documents}
         )
         # Validate that an API key has been provided
@@ -91,7 +92,6 @@ class StateAgent():
 
         if self.verify_api_key_supplied():
             reformulated_query = self.llm.invoke(formatted_query)
-            self.user_query = reformulated_query
-            print(f"DEBUG: Reforumlated query: {self.user_query}")
+            self.reformatted_user_query = reformulated_query
 
     
