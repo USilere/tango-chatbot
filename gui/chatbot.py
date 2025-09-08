@@ -1,10 +1,11 @@
 import tkinter as tk
 from tkinter import scrolledtext
 from PIL import Image, ImageTk
-from ..embeddings import Embeddings
-from ..source_data_chunker import SourceDataProcessor
+from embeddings import Embeddings
+from source_data_chunker import SourceDataProcessor
 from models.enums import SeparatorSelection
 from stateful_agent import StateAgent
+
 
 import glob
 import asyncio
@@ -114,7 +115,7 @@ def on_submit():
 
         # Clear input
         query_entry.delete(0, tk.END)
-
+    asyncio.run(run_agent())
 submit_button = tk.Button(root, text="Submit",
                           font=("Segoe UI", 12, "bold"),
                           bg=ACCENT_GREEN, fg="black",

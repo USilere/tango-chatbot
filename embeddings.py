@@ -1,13 +1,12 @@
 from typing import Any
-from langchain_community.vectorstores import Chroma
 import chromadb
-from chromadb.utils import embedding_functions 
+from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
 
 class Embeddings:
     def __init__(self):
         self.client = chromadb.Client()
         self.embedding_function_model_name = "all-MiniLM-L6-v2"
-        self.sbert_ef = embedding_functions.SentenceTransformerEmbeddingFunction(
+        self.sbert_ef = SentenceTransformerEmbeddingFunction(
             model_name=self.embedding_function_model_name
         )
         self.vector_db = None
